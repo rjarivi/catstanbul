@@ -17,46 +17,54 @@
     }
 
     header {
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      text-align: center;
       padding: 10px;
-      background-color: #18222D;
     }
 
     header img {
-      max-height: 80px;
+      width: 150px;
     }
 
     #main-container {
       display: flex;
-      flex-direction: column;
       flex-grow: 1;
       padding: 20px;
       gap: 20px;
     }
 
     #frame-section {
-      display: flex;
-      overflow-x: auto;
-      gap: 10px;
-      padding: 10px;
+      flex: 1;
       background-color: #18222D;
+      padding: 20px;
       border-radius: 10px;
     }
 
-    .frame-preview {
+    #frame-section p {
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .frame-preview-container {
       display: flex;
+      overflow-x: auto;
+      gap: 10px;
+      padding: 10px 0;
+    }
+
+    .frame-preview {
+      display: inline-flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
+      border-radius: 10px;
+      flex-shrink: 0;
     }
 
     .frame-preview canvas {
       border-radius: 10px;
       border: 2px solid transparent;
-      width: 100px;
-      height: 100px;
+      width: 80px;
+      height: 80px;
     }
 
     .frame-preview canvas:hover,
@@ -65,7 +73,7 @@
     }
 
     #preview-container {
-      flex-grow: 1;
+      flex: 2;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -120,39 +128,37 @@
       cursor: pointer;
     }
 
-    footer a {
-      text-decoration: none;
-      color: inherit;
-    }
-
-    footer a:hover {
+    footer p:hover,
+    footer img:hover {
       color: #00B6E9;
     }
   </style>
 </head>
 <body>
-  <!-- Header with Logo -->
   <header>
-    <img src="Catstanbul-logo.png" alt="Catstanbul 2025 Logo">
+    <img src="Catstanbul-logo.png" alt="Catstanbul Logo">
   </header>
 
   <div id="main-container">
     <!-- Frame Selection Section -->
     <div id="frame-section">
-      <div class="frame-preview" data-frame="Catstanbul-01.png">
-        <canvas id="frame-preview-1"></canvas>
-      </div>
-      <div class="frame-preview" data-frame="Catstanbul-02.png">
-        <canvas id="frame-preview-2"></canvas>
-      </div>
-      <div class="frame-preview" data-frame="Catstanbul-03.png">
-        <canvas id="frame-preview-3"></canvas>
-      </div>
-      <div class="frame-preview" data-frame="Catstanbul-04.png">
-        <canvas id="frame-preview-4"></canvas>
-      </div>
-      <div class="frame-preview" data-frame="Catstanbul-05.png">
-        <canvas id="frame-preview-5"></canvas>
+      <p>Choose your Frame:</p>
+      <div class="frame-preview-container">
+        <div class="frame-preview" data-frame="Catstanbul-01.png">
+          <canvas id="frame-preview-1"></canvas>
+        </div>
+        <div class="frame-preview" data-frame="Catstanbul-02.png">
+          <canvas id="frame-preview-2"></canvas>
+        </div>
+        <div class="frame-preview" data-frame="Catstanbul-03.png">
+          <canvas id="frame-preview-3"></canvas>
+        </div>
+        <div class="frame-preview" data-frame="Catstanbul-04.png">
+          <canvas id="frame-preview-4"></canvas>
+        </div>
+        <div class="frame-preview" data-frame="Catstanbul-05.png">
+          <canvas id="frame-preview-5"></canvas>
+        </div>
       </div>
     </div>
 
@@ -168,9 +174,9 @@
   <footer>
     <a href="https://x.com/rjarivi" target="_blank">
       <img src="X-logo.png" alt="RJ Arivi">
-      <p>RJ Arivi</p>
-      <p>Help keep this project running. Your support matters!</p>
     </a>
+    <p onclick="window.open('https://x.com/rjarivi', '_blank');">RJ Arivi</p>
+    <p>Help keep this project running. Your support matters!</p>
   </footer>
 
   <script>
