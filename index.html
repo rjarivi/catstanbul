@@ -3,22 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Catstanbul</title>
+  <title>Parti-Panels</title>
   <style>
-    /* General Styles */
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #0A1015;
-      margin: 0;
-      padding: 0;
-      color: #fff;
-    }
-
-    h2 {
-      color: #C7F284;
-    }
-
-    /* Header */
+    /* Header Styles (Logo) */
     header {
       display: flex;
       justify-content: center;
@@ -32,37 +19,31 @@
       max-width: 300px;
       height: auto;
       padding: 10px;
-      background-color: #18222D;
       border-radius: 10px;
-      box-shadow: 0 0 15px rgba(199, 242, 132, 0.8);
+      background-color: #18222D;
     }
 
-    /* Container */
+    /* Main Container Styles */
     #container {
       display: flex;
       justify-content: space-between;
-      padding: 30px;
-      flex-wrap: wrap;
+      align-items: flex-start;
+      margin-top: 20px;
     }
 
-    /* Frame Selection */
-    #frame-selection {
+    #frame-section {
+      width: 45%;
       display: flex;
-      flex-direction: row;
-      align-items: center;
-      padding: 20px;
-      background-color: #131B24;
-      border-radius: 15px;
-      margin-right: 20px;
-      width: 100%;
-      max-width: 800px;
-      overflow-x: scroll;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
     }
 
     .frame-preview {
       display: inline-block;
       margin: 10px;
       cursor: pointer;
+      position: relative;
     }
 
     .frame-preview canvas {
@@ -74,94 +55,75 @@
 
     .frame-preview canvas:hover,
     .frame-preview canvas.selected {
-      border-color: #00B6E9;
+      border-color: #32FFB4;
     }
 
-    /* Preview Container */
+    /* Preview Container Styles (Square) */
     #preview-container {
+      width: 45%;
+      height: 45vw; /* Square aspect ratio based on viewport width */
+      max-height: 500px; /* Maximum height limit */
+      background-color: #1A1A1F;
+      padding: 10px;
+      border-radius: 10px;
+      overflow: hidden;
       display: flex;
-      flex-direction: column;
-      align-items: center;
       justify-content: center;
-      background-color: #18222D;
-      padding: 20px;
-      border-radius: 15px;
-      margin: 20px auto;
-      width: 300px; /* Square dimensions */
-      height: 300px;
-      box-shadow: 0 4px 10px rgba(0, 182, 233, 0.6);
+      align-items: center;
     }
 
-    /* Buttons */
-    #controls {
-      display: flex;
-      justify-content: flex-start;
+    #canvas {
       width: 100%;
-      margin-top: 20px;
-      gap: 20px;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 10px;
     }
 
-    #upload-btn,
+    /* Download Button Styles (Meow It) */
     #download-btn {
-      padding: 12px 20px;
-      font-size: 16px;
-      border-radius: 8px;
-      font-weight: bold;
-    }
-
-    #upload-btn {
-      background-color: #143141;
-      color: #C7F284;
+      padding: 12px 25px;
+      background: linear-gradient(135deg, #C7F284, #00B6E9);
+      color: white;
       border: none;
+      font-size: 18px;
+      border-radius: 5px;
+      box-shadow: 0px 0px 15px rgba(0, 183, 233, 0.5);
       cursor: pointer;
-      box-shadow: 0 4px 8px rgba(0, 182, 233, 0.6);
-    }
-
-    #upload-btn:hover {
-      background-color: #18222D;
-    }
-
-    #download-btn {
-      width: auto;
-      background: linear-gradient(45deg, #C7F284, #00B6E9);
-      color: #1C2936;
-      border: 2px solid #C7F284;
-      cursor: pointer;
-      box-shadow: 0 0 10px rgba(199, 242, 132, 0.8), 0 0 15px rgba(0, 182, 233, 0.6);
-      padding: 12px 20px;
+      transition: all 0.3s ease;
+      width: auto; /* Auto width based on text content */
+      margin-top: 20px;
     }
 
     #download-btn:hover {
-      background: linear-gradient(45deg, #00B6E9, #C7F284);
-      border-color: #00B6E9;
+      box-shadow: 0px 0px 20px rgba(199, 242, 132, 0.8);
+      transform: translateY(-3px);
     }
 
-    /* Footer */
-    footer {
+    /* Thank the Creator Section Styles */
+    #thank-you-section {
       text-align: center;
-      padding: 20px;
-      background-color: #131B24;
+      margin-top: 20px;
+      font-size: 16px;
     }
 
-    #thank-creator {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-decoration: none;
-      color: #C7F284;
-      font-weight: bold;
-      gap: 10px;
-    }
-
-    #thank-creator img {
+    #thank-you-section img {
       width: 50px;
       height: 50px;
       border-radius: 50%;
-      box-shadow: 0 0 8px rgba(199, 242, 132, 0.6);
+      cursor: pointer;
+      border: 2px solid transparent;
+      margin-top: 10px;
     }
 
-    #thank-creator span:hover {
-      color: #00B6E9;
+    #thank-you-section img:hover {
+      border-color: #32FFB4;
+    }
+
+    #thank-you-section a {
+      text-decoration: none;
+      color: inherit;
+      display: inline-block;
+      margin-top: 5px;
     }
   </style>
 </head>
@@ -172,8 +134,8 @@
   </header>
 
   <div id="container">
-    <div id="frame-selection">
-      <h2>Choose Your Frame</h2>
+    <div id="frame-section">
+      <p>Choose your Frame:</p>
       <div class="frame-preview" data-frame="Catstanbul-01.png">
         <canvas id="frame-preview-1"></canvas>
       </div>
@@ -193,19 +155,51 @@
 
     <div id="preview-container">
       <canvas id="canvas"></canvas>
-      <div id="controls">
-        <button id="upload-btn" class="modern-button">Choose File</button>
-        <button id="download-btn" class="download-button">Meow It</button>
-      </div>
     </div>
+
+    <button id="download-btn">Meow It</button>
   </div>
 
-  <footer>
-    <a href="https://x.com/rjarivi" target="_blank" id="thank-creator">
-      <img src="X-logo.png" alt="RJ Arivi Logo">
-      <span>Thank the Creator: RJ Arivi</span>
+  <!-- Thank the Creator Section -->
+  <div id="thank-you-section">
+    <p>Thank the Creator by following them:</p>
+    <a href="https://x.com/rjarivi" target="_blank">
+      <img src="X Logo.png" alt="RJ Arivi">
     </a>
-  </footer>
+  </div>
+
+  <script>
+    // JavaScript for interactive functionality
+    const frames = document.querySelectorAll('.frame-preview');
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+
+    frames.forEach(frame => {
+      frame.addEventListener('click', () => {
+        // Get selected frame and update preview
+        const selectedFrame = frame.getAttribute('data-frame');
+        const img = new Image();
+        img.src = selectedFrame;
+        img.onload = () => {
+          canvas.width = img.width;
+          canvas.height = img.height;
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.drawImage(img, 0, 0);
+        };
+        // Highlight selected frame
+        frames.forEach(f => f.querySelector('canvas').classList.remove('selected'));
+        frame.querySelector('canvas').classList.add('selected');
+      });
+    });
+
+    // Download Button functionality (for example purpose)
+    document.getElementById('download-btn').addEventListener('click', () => {
+      const link = document.createElement('a');
+      link.href = canvas.toDataURL();
+      link.download = 'preview-image.png';
+      link.click();
+    });
+  </script>
 
 </body>
 </html>
