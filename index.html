@@ -192,6 +192,33 @@ header img {
     <img src="Catstanbullogo.png" alt="Catstanbul Logo" id="header-logo">
   </header>
 
+  document.getElementById('fileInput').addEventListener('change', function(event) {
+  const file = event.target.files[0];
+  const reader = new FileReader();
+
+  reader.onload = function(e) {
+    uploadedImage = new Image();
+    uploadedImage.onload = function() {
+      canvas.width = uploadedImage.width;
+      canvas.height = uploadedImage.height;
+      ctx.drawImage(uploadedImage, 0, 0);
+    };
+    uploadedImage.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+});
+function selectFrame(frame) {
+  selectedFrame = new Image();
+  selectedFrame.onload = function() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear previous frame
+    if (uploadedImage) {
+      ctx.drawImage(uploadedImage, 0, 0);
+    }
+    ctx.drawImage(selectedFrame, 0, 0);
+  };
+  selectedFrame.src = frame;
+}
+
   <div id="main-container">
     <div id="frames-section">
       <h2>Choose your image</h2>
