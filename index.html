@@ -22,6 +22,7 @@
       align-items: center;
       background-color: #1C2936;
       padding: 20px;
+      border-bottom: 2px solid #C7F284;
     }
 
     header img {
@@ -38,6 +39,7 @@
       flex-grow: 1;
       padding: 20px;
       gap: 20px;
+      justify-content: space-between;
     }
 
     #frame-section {
@@ -45,6 +47,8 @@
       background-color: #18222D;
       padding: 20px;
       border-radius: 10px;
+      max-height: 80%; /* Set a max height to prevent overflow */
+      overflow-y: auto; /* Allow scrolling if content overflows */
     }
 
     #frame-section p {
@@ -89,8 +93,10 @@
       border-radius: 10px;
       overflow: hidden;
       padding: 20px;
-      width: 45vw; /* Match the left section height and ensure a square ratio */
-      height: 45vw; /* Square aspect ratio */
+      max-height: 80%; /* Set a max height to prevent overflow */
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
     canvas {
@@ -103,7 +109,7 @@
       padding: 10px 20px;
       background: linear-gradient(90deg, #C7F284, #00B6E9);
       color: #1C2936;
-      border: 2px solid #32FFB4;
+      border: none;
       cursor: pointer;
       font-size: 16px;
       font-weight: bold;
@@ -111,14 +117,12 @@
       text-transform: uppercase;
       margin: 20px auto;
       display: block;
-      transition: all 0.3s ease;
-      width: auto; /* Auto width based on content */
+      width: auto; /* Auto width for the button */
+      box-shadow: 0 0 15px rgba(199, 242, 132, 0.7); /* Glow effect */
     }
 
     #download-btn:hover {
       background: linear-gradient(90deg, #00B6E9, #C7F284);
-      box-shadow: 0px 0px 10px rgba(199, 242, 132, 0.8);
-      transform: translateY(-3px);
     }
 
     footer {
