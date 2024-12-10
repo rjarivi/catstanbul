@@ -6,68 +6,76 @@
   <title>Catstanbul 2025</title>
   <style>
     body {
-      font-family: 'Arial', sans-serif;
+      font-family: "Akira Expanded", Arial, sans-serif;
       background-color: #1C2936;
-      color: white;
+      color: #C7F284;
       margin: 0;
-      padding: 20px;
+      padding: 0;
       display: flex;
       flex-direction: column;
-      min-height: 100vh;
+      height: 100vh;
     }
-    .logo {
-      display: block;
-      margin: 0 auto 20px;
-      max-width: 300px;
-      max-height: 150px;
-      object-fit: contain;
-    }
-    .container {
+
+    header {
       display: flex;
-      justify-content: space-between;
-      gap: 20px;
-      flex-grow: 1;
+      justify-content: center;
+      align-items: center;
+      background-color: #1C2936;
+      padding: 20px;
     }
+
+    #main-container {
+      display: flex;
+      flex-grow: 1;
+      padding: 20px;
+      gap: 20px;
+    }
+
     #frames-section {
-      flex: 0 0 300px;
+      flex: 1;
       background-color: #18222D;
       padding: 20px;
       border-radius: 10px;
       display: flex;
       flex-direction: column;
-      align-items: center;
+      gap: 20px;
+      align-items: flex-start;
     }
-    #frames-section p {
-      font-weight: bold;
-      margin-bottom: 10px;
-      color: #C7F284;
+
+    #upload-btn {
+      background: linear-gradient(135deg, #C7F284, #00B6E9);
+      color: #1C2936;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
     }
+
+    #upload-btn:hover {
+      transform: scale(1.05);
+    }
+
     .frames-container {
       display: flex;
-      justify-content: center;
-      gap: 10px;
-      margin-bottom: 20px;
       flex-wrap: wrap;
+      gap: 15px;
     }
+
     .frame-preview {
+      display: flex;
+      justify-content: center;
+      align-items: center;
       cursor: pointer;
-      position: relative;
     }
+
     .frame-preview img {
+      max-width: 80px;
+      max-height: 80px;
       border-radius: 10px;
-      border: 2px solid transparent;
-      width: 80px;
-      height: 80px;
-      object-fit: cover;
     }
-    .frame-preview img:hover, 
-    .frame-preview img.selected {
-      border-color: #00B6E9;
-    }
-    #upload {
-      margin-bottom: 10px;
-      align-self: center;
-    }
+
     #preview-section {
       flex: 1;
       background-color: #131B24;
@@ -78,22 +86,22 @@
       align-items: center;
       justify-content: center;
     }
+
     #preview-container {
       width: 400px;
       height: 400px;
+      background-color: #143141;
+      border-radius: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
-      background-color: #143141;
-      border-radius: 10px;
-      margin-bottom: 20px;
     }
+
     #canvas {
       max-width: 100%;
       max-height: 100%;
-      object-fit: contain;
-      border-radius: 10px;
     }
+
     #download-btn {
       padding: 10px 20px;
       background: linear-gradient(135deg, #C7F284, #00B6E9);
@@ -101,238 +109,96 @@
       border: none;
       cursor: pointer;
       font-size: 16px;
-      border-radius: 5px;
+      border-radius: 10px;
       transition: transform 0.3s ease;
     }
+
     #download-btn:hover {
       transform: scale(1.05);
     }
-    .upload-note {
-      color: #C7F284;
-      font-size: 14px;
-      margin-bottom: 10px;
-      text-align: center;
-    }
+
     footer {
-      margin-top: 20px;
-      display: flex;
-      flex-direction: column;
-      background-color: #18222D;
-      padding: 20px;
-      border-radius: 10px;
-    }
-    .footer-content {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    #thank-creator {
-      display: flex;
-      align-items: center;
-      cursor: pointer;
-    }
-    #thank-creator img {
-      width: 50px;
-      height: 50px;
-      margin-right: 15px;
-      border-radius: 50%;
-      object-fit: contain;
-    }
-    .donate-header {
-      display: flex;
-      align-items: center;
-      margin-bottom: 10px;
+      background-color: #12181F;
       color: #C7F284;
-      gap: 10px;
-    }
-    .donate-header img {
-      width: 30px;
-      height: 30px;
-    }
-    #donate-section {
-      display: flex;
-      align-items: center;
-      background-color: #143141;
+      text-align: center;
       padding: 10px;
-      border-radius: 5px;
+      font-size: 12px;
     }
-    #donate-address {
-      margin-right: 10px;
-      color: #C7F284;
-      max-width: 200px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    #copy-icon {
+
+    footer img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      margin-bottom: 5px;
       cursor: pointer;
+    }
+
+    footer p {
+      margin: 0;
+      cursor: pointer;
+      font-size: 10px;
+    }
+
+    footer p:hover {
       color: #00B6E9;
     }
   </style>
 </head>
 <body>
-  <img src="Catstanbul-logo.png" alt="Catstanbul 2025" class="logo">
+  <header>
+    <h1>Catstanbul 2025</h1>
+  </header>
 
-  <div class="container">
+  <div id="main-container">
+    <!-- Frames Section -->
     <div id="frames-section">
-      <p>Choose your Frame:</p>
-      <input type="file" id="upload" accept="image/jpeg, image/png" />
-      <div class="upload-note">
-        Upload only square images (1:1 aspect ratio)
-      </div>
+      <p>Start by uploading your image</p>
+      <h2>Upload your image</h2>
+      <button id="upload-btn">Choose File</button>
+      <h2>Choose your frame</h2>
+      <p>Upload only square images (1:1 aspect ratio)</p>
       <div class="frames-container">
-        <div class="frame-preview" data-frame="Catstanbul-01.png">
+        <div class="frame-preview">
           <img src="Catstanbul-01.png" alt="Frame 1">
         </div>
-        <div class="frame-preview" data-frame="Catstanbul-02.png">
+        <div class="frame-preview">
           <img src="Catstanbul-02.png" alt="Frame 2">
         </div>
-        <div class="frame-preview" data-frame="Catstanbul-03.png">
+        <div class="frame-preview">
           <img src="Catstanbul-03.png" alt="Frame 3">
         </div>
-        <div class="frame-preview" data-frame="Catstanbul-04.png">
+        <div class="frame-preview">
           <img src="Catstanbul-04.png" alt="Frame 4">
         </div>
       </div>
     </div>
 
+    <!-- Preview Section -->
     <div id="preview-section">
       <div id="preview-container">
         <canvas id="canvas"></canvas>
       </div>
-      <button id="download-btn">Meow It</button>
+      <button id="download-btn">Download Image</button>
     </div>
   </div>
 
   <footer>
-    <div class="footer-content">
-      <div id="thank-creator">
-        <img src="X-logo.png" alt="X Logo">
-        <div id="thank-creator-text">
-          <strong>RJ Arivi</strong><br>
-          Creator of Catstanbul 2025
-        </div>
-      </div>
-      <div>
-        <div class="donate-header">
-          <img src="solana.svg" alt="Solana Logo">
-          <span>Donate to support: Send sol/JUP donations</span>
-        </div>
-        <div id="donate-section">
-          <div id="donate-address">AgwzDjcxtc1yyHGjJLjE9XyyXa2sP5yBDmqwUPK9FmJw</div>
-          <div id="copy-icon">📋</div>
-        </div>
-      </div>
+    <div style="display: flex; justify-content: center; align-items: center; gap: 5px;">
+      <img src="creator.png" alt="Creator">
+      <p id="creator-address" onclick="copyToClipboard('https://creator.url')">Creator</p>
     </div>
   </footer>
 
   <script>
-    const uploadInput = document.getElementById('upload');
-    const canvas = document.getElementById('canvas');
-    const ctx = canvas.getContext('2d');
-    const frameOptions = document.querySelectorAll('.frame-preview');
-    const downloadBtn = document.getElementById('download-btn');
-    const frameImages = [
-      document.querySelector('.frame-preview[data-frame="Catstanbul-01.png"] img'),
-      document.querySelector('.frame-preview[data-frame="Catstanbul-02.png"] img'),
-      document.querySelector('.frame-preview[data-frame="Catstanbul-03.png"] img'),
-      document.querySelector('.frame-preview[data-frame="Catstanbul-04.png"] img'),
-    ];
-
-    const framePaths = ['Catstanbul-01.png', 'Catstanbul-02.png', 'Catstanbul-03.png', 'Catstanbul-04.png'];
-    let selectedFrame = 'Catstanbul-01.png'; // Default frame
-    let uploadedImage = null; // To hold the uploaded image
-
-    // Thank creator link
-    document.getElementById('thank-creator').addEventListener('click', () => {
-      window.open('https://x.com/rjarivi', '_blank');
-    });
-
-    // Copy donate address
-    document.getElementById('copy-icon').addEventListener('click', () => {
-      const addressElement = document.getElementById('donate-address');
-      navigator.clipboard.writeText(addressElement.textContent).then(() => {
-        addressElement.style.color = '#00B6E9';
-        setTimeout(() => {
-          addressElement.style.color = '#C7F284';
-        }, 500);
+    function copyToClipboard(text) {
+      navigator.clipboard.writeText(text).then(() => {
+        alert("Address copied to clipboard!");
       });
-    });
-
-    // Handle frame selection
-    frameOptions.forEach((option, index) => {
-      const frameImg = frameImages[index];
-
-      option.addEventListener('click', () => {
-        // Update selected frame
-        selectedFrame = option.getAttribute('data-frame');
-
-        // Remove "selected" class from all and add it to the clicked frame
-        frameImages.forEach(img => img.classList.remove('selected'));
-        frameImg.classList.add('selected');
-
-        // Update canvas with the new frame if an image is uploaded
-        if (uploadedImage) {
-          drawCanvas(uploadedImage, selectedFrame);
-        }
-      });
-    });
-
-    // Handle image upload
-    uploadInput.addEventListener('change', (e) => {
-      const file = e.target.files[0];
-      if (file) {
-        const img = new Image();
-        img.src = URL.createObjectURL(file);
-
-        img.onload = () => {
-          // Check if image is square
-          if (img.width !== img.height) {
-            alert('Please upload a square image (1:1 aspect ratio).');
-            uploadInput.value = ''; // Clear the input
-            return;
-          }
-
-          uploadedImage = img; // Save the uploaded image
-          drawCanvas(img, selectedFrame); // Draw image and frame
-        };
-      }
-    });
-
-    // Draw the image and frame on the canvas
-    function drawCanvas(image, frameSrc) {
-      const frame = new Image();
-      frame.src = frameSrc;
-
-      frame.onload = () => {
-        // Set canvas size to match the original image
-        canvas.width = image.width;
-        canvas.height = image.height;
-
-        // Clear previous content
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-        // Draw the uploaded image
-        ctx.drawImage(image, 0, 0, image.width, image.height);
-
-        // Overlay the selected frame
-        ctx.drawImage(frame, 0, 0, image.width, image.height);
-      };
     }
 
-    // Download the final image with full dimensions
-    downloadBtn.addEventListener('click', () => {
-      if (!uploadedImage) {
-        alert('Please upload an image first.');
-        return;
-      }
-      const link = document.createElement('a');
-      link.download = 'catstanbul-2025-memory.png';
-      link.href = canvas.toDataURL();
-      link.click();
+    document.getElementById('creator-address').addEventListener('click', () => {
+      copyToClipboard("https://creator.url");
     });
-
-    // Preselect first frame
-    frameImages[0].classList.add('selected');
   </script>
 </body>
 </html>
