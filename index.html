@@ -10,27 +10,49 @@
       background-color: #1C2936;
       color: #C7F284;
       margin: 0;
-      padding: 20px;
-      text-align: center;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
     }
 
     h1 {
       font-size: 36px;
       color: #C7F284;
       text-transform: uppercase;
+      margin: 20px 0;
+      text-align: center;
     }
 
     p {
       color: #00B6E9;
     }
 
+    #main-container {
+      display: flex;
+      flex-grow: 1;
+      padding: 20px;
+      gap: 20px;
+    }
+
     #frame-section {
-      margin: 20px 0;
+      flex: 1;
+      background-color: #18222D;
+      padding: 20px;
+      border-radius: 10px;
+      max-height: calc(100vh - 200px);
+      overflow-y: auto;
+    }
+
+    #frame-section p {
+      margin-bottom: 10px;
     }
 
     .frame-preview {
-      display: inline-block;
-      margin: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
       cursor: pointer;
     }
 
@@ -47,16 +69,14 @@
     }
 
     #preview-container {
+      flex: 2;
       display: flex;
       justify-content: center;
       align-items: center;
       background-color: #18222D;
-      margin: 20px auto;
-      padding: 10px;
-      max-width: 640px;
-      max-height: 320px;
       border-radius: 10px;
       overflow: hidden;
+      padding: 20px;
     }
 
     canvas {
@@ -75,64 +95,75 @@
       font-weight: bold;
       border-radius: 5px;
       text-transform: uppercase;
+      margin: 20px auto;
+      display: block;
     }
 
     #download-btn:hover {
       background: linear-gradient(90deg, #00B6E9, #C7F284);
     }
 
-    #thank-you-section {
-      margin-top: 30px;
-      text-align: center;
+    footer {
+      background-color: #12181F;
       color: #C7F284;
+      text-align: center;
+      padding: 20px;
+      margin-top: auto;
     }
 
-    #thank-you-section img {
+    footer img {
       width: 60px;
       height: 60px;
-      margin: 10px;
       border-radius: 50%;
+      display: block;
+      margin: 10px auto;
     }
 
-    #thank-you-section p {
-      margin: 10px 0 5px 0;
+    footer p {
+      margin: 5px 0;
     }
   </style>
 </head>
 <body>
   <h1>Catstanbul 2025</h1>
-  <p>Upload your image, choose a frame, and download your masterpiece!</p>
+  <p style="text-align: center;">Upload your image, choose a frame, and download your masterpiece!</p>
 
-  <div id="frame-section">
-    <p>Choose your Frame:</p>
-    <div class="frame-preview" data-frame="Catstanbul-01.png">
-      <canvas id="frame-preview-1"></canvas>
+  <div id="main-container">
+    <!-- Frame Selection Section -->
+    <div id="frame-section">
+      <p>Choose your Frame:</p>
+      <div class="frame-preview" data-frame="Catstanbul-01.png">
+        <canvas id="frame-preview-1"></canvas>
+      </div>
+      <div class="frame-preview" data-frame="Catstanbul-02.png">
+        <canvas id="frame-preview-2"></canvas>
+      </div>
+      <div class="frame-preview" data-frame="Catstanbul-03.png">
+        <canvas id="frame-preview-3"></canvas>
+      </div>
+      <div class="frame-preview" data-frame="Catstanbul-04.png">
+        <canvas id="frame-preview-4"></canvas>
+      </div>
+      <div class="frame-preview" data-frame="Catstanbul-05.png">
+        <canvas id="frame-preview-5"></canvas>
+      </div>
     </div>
-    <div class="frame-preview" data-frame="Catstanbul-02.png">
-      <canvas id="frame-preview-2"></canvas>
-    </div>
-    <div class="frame-preview" data-frame="Catstanbul-03.png">
-      <canvas id="frame-preview-3"></canvas>
-    </div>
-    <div class="frame-preview" data-frame="Catstanbul-04.png">
-      <canvas id="frame-preview-4"></canvas>
-    </div>
-    <div class="frame-preview" data-frame="Catstanbul-05.png">
-      <canvas id="frame-preview-5"></canvas>
+
+    <!-- Preview Section -->
+    <div id="preview-container">
+      <canvas id="canvas"></canvas>
     </div>
   </div>
 
-  <input type="file" id="upload" accept="image/*" />
-  <div id="preview-container">
-    <canvas id="canvas"></canvas>
-  </div>
+  <input type="file" id="upload" accept="image/*" style="display: block; margin: 20px auto;">
   <button id="download-btn">Meow It</button>
 
-  <div id="thank-you-section">
+  <footer>
     <p>Thank the Creator:</p>
     <img src="X-logo.png" alt="RJ Arivi">
     <p>RJ Arivi</p>
-  </div>
+    <p>Help keep this project running. Your support matters!</p>
+  </footer>
 
   <script>
     const uploadInput = document.getElementById('upload');
@@ -158,7 +189,6 @@
     let selectedFrame = framePaths[0]; // Default frame
     let uploadedImage = null;
 
-    // Load the frames into the preview section
     function loadFramePreviews() {
       frameCanvases.forEach((frameCanvas, index) => {
         const frameCtx = frameCanvas.getContext('2d');
@@ -172,31 +202,24 @@
       });
     }
 
-    // Handle frame selection
     frameOptions.forEach(option => {
       const frameCanvas = option.querySelector('canvas');
-
       option.addEventListener('click', () => {
         selectedFrame = option.getAttribute('data-frame');
-
-        // Update selected class
         frameOptions.forEach(opt => opt.querySelector('canvas').classList.remove('selected'));
         frameCanvas.classList.add('selected');
 
-        // Redraw with the selected frame
         if (uploadedImage) {
           drawCanvas(uploadedImage, selectedFrame);
         }
       });
     });
 
-    // Handle image upload
     uploadInput.addEventListener('change', (e) => {
       const file = e.target.files[0];
       if (file) {
         const img = new Image();
         img.src = URL.createObjectURL(file);
-
         img.onload = () => {
           uploadedImage = img;
           drawCanvas(img, selectedFrame);
@@ -204,7 +227,6 @@
       }
     });
 
-    // Draw the image and frame on the canvas
     function drawCanvas(image, frameSrc) {
       const frame = new Image();
       frame.src = frameSrc;
@@ -223,7 +245,6 @@
       };
     }
 
-    // Download the final image
     downloadBtn.addEventListener('click', () => {
       const link = document.createElement('a');
       link.download = 'Catstanbul-Masterpiece.png';
@@ -231,7 +252,6 @@
       link.click();
     });
 
-    // Load the frame previews
     loadFramePreviews();
   </script>
 </body>
