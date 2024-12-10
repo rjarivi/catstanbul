@@ -14,19 +14,17 @@
       flex-direction: column;
       height: 100vh;
     }
-}
-    .logo {
-      display: block;
-      margin: 0 auto 20px;
-      max-width: 300px;
-      max-height: 150px;
-      object-fit: contain;
-    }
+
     header {
       display: flex;
       justify-content: center;
       align-items: center;
       padding: 40px 0;
+    }
+
+    header img {
+      max-height: 100px;
+      max-width: 100%;
     }
 
     #main-container {
@@ -149,13 +147,13 @@
     }
 
     .footer-center .rounded-box {
+      width: 120%;
+      height: 44px;
+      border-radius: 22px;
+      background-color: #C7F284;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
-      padding: 10px;
-      background-color: #C7F284;
-      border-radius: 22px;
       cursor: pointer;
     }
 
@@ -185,15 +183,14 @@
 <body>
   <header>
     <img src="Catstanbullogo.png" alt="Catstanbul Logo">
-
   </header>
 
   <div id="main-container">
     <div id="frames-section">
       <h2>Choose your image</h2>
       <small>Choose only square images (1:1 aspect ratio)</small>
-      <input type="file" id="file-input" accept="image/*" style="display: none;">
-      <button id="upload-btn" onclick="document.getElementById('file-input').click();">Choose File</button>
+      <input type="file" id="image-input" style="display:none;" onchange="handleImageUpload(event)">
+      <button id="upload-btn" onclick="document.getElementById('image-input').click()">Choose File</button>
 
       <h2>Choose your frame</h2>
       <div class="frames-container">
@@ -216,14 +213,19 @@
       <div id="preview-container">
         <canvas id="canvas"></canvas>
       </div>
-      <button id="download-btn" onclick="downloadImage();">Meow It</button>
+      <button id="download-btn" onclick="downloadImage()">Meow It</button>
     </div>
   </div>
 
   <footer>
     <div id="left-footer">
-      <img src="X-logo.png" alt="Creator">
-      <a href="https://x.com/rjarivi" target="_blank" style="text-decoration: none; color: #C7F284;">RJ ARIVI</a>
+      <a href="https://x.com/rjarivi" target="_blank">
+        <img src="x-logo.png" alt="Creator">
+        <div>
+          <p>RJ ARIVI</p>
+          <small>Site Creator</small>
+        </div>
+      </a>
     </div>
     <div class="footer-center">
       <div class="support-text">
@@ -241,39 +243,37 @@
   </footer>
 
   <script>
-    const canvas = document.getElementById("canvas");
-    const ctx = canvas.getContext("2d");
-    const fileInput = document.getElementById("file-input");
-    let image = new Image();
-
-    fileInput.addEventListener("change", (e) => {
-      const file = e.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = () => {
-          image.src = reader.result;
-          image.onload = () => {
-            canvas.width = 400;
-            canvas.height = 400;
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.drawImage(image, 0, 0, 400, 400);
-          };
-        };
-        reader.readAsDataURL(file);
-      }
-    });
-
-    function downloadImage() {
-      const link = document.createElement("a");
-      link.download = "frame.png";
-      link.href = canvas.toDataURL("image/png");
-      link.click();
-    }
-
     function copyToClipboard(text) {
       navigator.clipboard.writeText(text).then(() => {
         alert("Address copied to clipboard!");
       });
+    }
+
+    function handleImageUpload(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const img = new Image();
+          img.src = e.target.result;
+          img.onload = function() {
+            const canvas = document.getElementById('canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = img.width;
+            canvas.height = img.height;
+            ctx.drawImage(img, 0, 0);
+          };
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    function downloadImage() {
+      const canvas = document.getElementById('canvas');
+      const link = document.createElement('a');
+      link.href = canvas.toDataURL();
+      link.download = 'image.png';
+      link.click();
     }
   </script>
 </body>
