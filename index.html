@@ -3,10 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Catstanbul 2025</title>
   <style>
     body {
-      font-family: "Akira Expanded", Arial, sans-serif;
+      font-family: Arial, sans-serif;
       background-color: #1C2936;
       color: #C7F284;
       margin: 0;
@@ -20,8 +19,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      background-color: #1C2936;
-      padding-top: 40px; /* Added padding from top */
+      padding: 40px 0;
     }
 
     #main-container {
@@ -31,54 +29,50 @@
       gap: 20px;
     }
 
-    /* Left Section */
     #frames-section {
-      flex: 0.45;
+      flex: 0.35;
       background-color: #18222D;
-      padding: 40px;
+      padding: 20px;
       border-radius: 10px;
       display: flex;
       flex-direction: column;
       gap: 20px;
-      align-items: flex-start;
+      align-items: center;
     }
 
     #upload-btn {
+      width: 40%;
       background: linear-gradient(135deg, #C7F284, #00B6E9);
       color: #1C2936;
       border: none;
-      padding: 12px 24px;
+      padding: 10px 20px;
       border-radius: 10px;
       font-size: 16px;
       cursor: pointer;
-      width: 100%;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      transition: transform 0.3s ease;
     }
 
     #upload-btn:hover {
       transform: scale(1.05);
-      box-shadow: 0px 4px 12px rgba(199, 242, 132, 0.6);
     }
 
     .frames-container {
       display: flex;
       flex-wrap: wrap;
       gap: 15px;
-      justify-content: flex-start;
+      justify-content: center;
     }
 
     .frame-preview img {
-      width: 80px;
-      height: 80px;
-      cursor: pointer;
+      max-width: 80px;
+      max-height: 80px;
       border-radius: 10px;
     }
 
-    /* Right Section */
     #preview-section {
-      flex: 0.55;
+      flex: 0.65;
       background-color: #131B24;
-      padding: 40px;
+      padding: 20px;
       border-radius: 10px;
       display: flex;
       flex-direction: column;
@@ -94,27 +88,30 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      overflow: hidden;
+    }
+
+    #canvas {
+      max-width: 100%;
+      max-height: 100%;
     }
 
     #download-btn {
-      padding: 12px 24px;
+      margin-top: 20px;
+      padding: 10px 20px;
       background: linear-gradient(135deg, #C7F284, #00B6E9);
       color: #1C2936;
-      border: none;
+      border: 2px solid #C7F284;
       cursor: pointer;
       font-size: 16px;
       border-radius: 10px;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
-      margin-top: 20px;
+      box-shadow: 0 0 10px #C7F284;
     }
 
     #download-btn:hover {
       transform: scale(1.05);
-      box-shadow: 0px 4px 12px rgba(199, 242, 132, 0.6);
     }
 
-    /* Footer */
     footer {
       background-color: #12181F;
       color: #C7F284;
@@ -123,46 +120,59 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 12px;
     }
 
-    footer img {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      margin-right: 10px;
+    .footer-center {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
     }
 
-    footer p {
-      margin: 0;
-      font-size: 10px;
-      cursor: pointer;
+    .footer-center img {
+      width: 30px;
+      height: 30px;
     }
 
-    footer p:hover {
-      color: #00B6E9;
-    }
-
-    .copy-container {
+    .footer-center .support-text {
       display: flex;
       align-items: center;
       gap: 10px;
     }
 
-    .copy-box {
-      padding: 10px 20px;
-      background-color: #18222D;
-      border-radius: 25px;
+    .footer-center .rounded-box {
+      width: 120%;
+      height: 44px;
+      border-radius: 22px;
+      background-color: #C7F284;
       display: flex;
       align-items: center;
+      justify-content: center;
       cursor: pointer;
     }
 
-    .copy-box img {
-      width: 16px;
-      height: 16px;
+    #right-footer img {
+      width: 40px;
+      height: 40px;
+      margin-left: 10px;
     }
 
+    #left-footer {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    #left-footer img {
+      width: 50px;
+      height: 50px;
+    }
+
+    #left-footer div {
+      display: flex;
+      flex-direction: column;
+    }
   </style>
 </head>
 <body>
@@ -171,109 +181,59 @@
   </header>
 
   <div id="main-container">
-    <!-- Frames Section -->
     <div id="frames-section">
       <h2>Choose your image</h2>
-      <p>Choose only square images (1:1 aspect ratio)</p>
-      <input type="file" id="image-upload" accept="image/*" onchange="previewImage()">
+      <small>Choose only square images (1:1 aspect ratio)</small>
+      <button id="upload-btn">Choose File</button>
+
       <h2>Choose your frame</h2>
       <div class="frames-container">
-        <div class="frame-preview" onclick="selectFrame('Catstanbul-01.png')">
+        <div class="frame-preview">
           <img src="Catstanbul-01.png" alt="Frame 1">
         </div>
-        <div class="frame-preview" onclick="selectFrame('Catstanbul-02.png')">
+        <div class="frame-preview">
           <img src="Catstanbul-02.png" alt="Frame 2">
         </div>
-        <div class="frame-preview" onclick="selectFrame('Catstanbul-03.png')">
+        <div class="frame-preview">
           <img src="Catstanbul-03.png" alt="Frame 3">
         </div>
-        <div class="frame-preview" onclick="selectFrame('Catstanbul-04.png')">
+        <div class="frame-preview">
           <img src="Catstanbul-04.png" alt="Frame 4">
         </div>
       </div>
     </div>
 
-    <!-- Preview Section -->
     <div id="preview-section">
       <div id="preview-container">
         <canvas id="canvas"></canvas>
       </div>
-      <button id="download-btn" onclick="downloadImage()">Meow It!</button>
+      <button id="download-btn">Meow It</button>
     </div>
   </div>
 
   <footer>
-    <div>
-      <img src="Catstanbullogo.png" alt="Site Logo">
-      <p>RJ ARIVI <span style="font-size: 10px; color: #C7F284;">Site Creator</span></p>
-    </div>
-    <div class="copy-container">
-      <img src="solana.svg" alt="Solana Logo">
-      <div class="copy-box" onclick="copyToClipboard('AgwzDjcxtc1yyHGjJLjE9XyyXa2sP5yBDmqwUPK9FmJw')">
-        <img src="copy.png" alt="Copy Icon">
-        <p>f7ash.sol</p>
+    <div id="left-footer">
+      <img src="x-logo.png" alt="Creator">
+      <div>
+        <p>RJ ARIVI</p>
+        <small>Site Creator</small>
       </div>
+    </div>
+    <div class="footer-center">
+      <div class="support-text">
+        <img src="solana.svg" alt="Solana Logo">
+        <span>Support the creator</span>
+      </div>
+      <div class="rounded-box" onclick="copyToClipboard('AgwzDjcxtc1yyHGjJLjE9XyyXa2sP5yBDmqwUPK9FmJw')">
+        <img src="copy.png" alt="Copy">
+      </div>
+    </div>
+    <div id="right-footer">
+      <img src="jupiterlogo.svg" alt="Jupiter Logo">
     </div>
   </footer>
 
   <script>
-    let selectedImage = null;
-    let selectedFrame = null;
-
-    function previewImage() {
-      const fileInput = document.getElementById("image-upload");
-      const file = fileInput.files[0];
-      const reader = new FileReader();
-
-      reader.onload = function(event) {
-        const image = new Image();
-        image.src = event.target.result;
-        image.onload = function() {
-          selectedImage = image;
-          drawCanvas();
-        };
-      };
-      
-      if (file) {
-        reader.readAsDataURL(file);
-      }
-    }
-
-    function selectFrame(frame) {
-      selectedFrame = frame;
-      drawCanvas();
-    }
-
-    function drawCanvas() {
-      if (!selectedImage || !selectedFrame) return;
-
-      const canvas = document.getElementById("canvas");
-      const ctx = canvas.getContext("2d");
-      
-      // Set canvas size
-      canvas.width = selectedImage.width;
-      canvas.height = selectedImage.height;
-
-      // Draw the image
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.drawImage(selectedImage, 0, 0);
-
-      // Draw the frame
-      const frameImg = new Image();
-      frameImg.src = selectedFrame;
-      frameImg.onload = function() {
-        ctx.drawImage(frameImg, 0, 0, canvas.width, canvas.height);
-      };
-    }
-
-    function downloadImage() {
-      const canvas = document.getElementById("canvas");
-      const link = document.createElement("a");
-      link.download = "Catstanbul-Image.png";
-      link.href = canvas.toDataURL("image/png");
-      link.click();
-    }
-
     function copyToClipboard(text) {
       navigator.clipboard.writeText(text).then(() => {
         alert("Address copied to clipboard!");
