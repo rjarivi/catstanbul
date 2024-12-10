@@ -3,70 +3,66 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Catstanbul 2025</title>
+  <title>Catstanbul</title>
   <style>
+    /* General Styles */
     body {
-      font-family: "Akira Expanded", Arial, sans-serif;
-      background-color: #1C2936;
-      color: #C7F284;
+      font-family: Arial, sans-serif;
+      background-color: #0A1015;
       margin: 0;
       padding: 0;
-      display: flex;
-      flex-direction: column;
-      height: 100vh;
+      color: #fff;
     }
 
+    h2 {
+      color: #C7F284;
+    }
+
+    /* Header */
     header {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #1C2936;
-  padding: 20px;
-  border-bottom: 2px solid #C7F284;
-}
-
-header img {
-  width: 90%;
-  max-width: 300px;
-  height: auto;
-  padding: 10px;
-  border-radius: 10px;
-  background-color: #18222D;
-}
-
-    #main-container {
       display: flex;
-      flex-grow: 1;
+      justify-content: center;
+      align-items: center;
+      background-color: #1C2936;
       padding: 20px;
-      gap: 20px;
     }
 
-    #frame-section {
-      flex: 1;
+    header img {
+      width: 90%;
+      max-width: 300px;
+      height: auto;
+      padding: 10px;
       background-color: #18222D;
-      padding: 20px;
       border-radius: 10px;
+      box-shadow: 0 0 15px rgba(199, 242, 132, 0.8);
     }
 
-    #frame-section p {
-      margin-bottom: 10px;
-      text-align: center;
-    }
-
-    .frame-preview-container {
+    /* Container */
+    #container {
       display: flex;
-      overflow-x: auto;
-      gap: 10px;
-      padding: 10px 0;
+      justify-content: space-between;
+      padding: 30px;
+      flex-wrap: wrap;
+    }
+
+    /* Frame Selection */
+    #frame-selection {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      padding: 20px;
+      background-color: #131B24;
+      border-radius: 15px;
+      margin-right: 20px;
+      width: 100%;
+      max-width: 800px;
+      overflow-x: scroll;
     }
 
     .frame-preview {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
+      display: inline-block;
+      margin: 10px;
       cursor: pointer;
-      border-radius: 10px;
-      flex-shrink: 0;
     }
 
     .frame-preview canvas {
@@ -78,227 +74,138 @@ header img {
 
     .frame-preview canvas:hover,
     .frame-preview canvas.selected {
-      border-color: #C7F284;
+      border-color: #00B6E9;
     }
 
+    /* Preview Container */
     #preview-container {
-      flex: 2;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
+      justify-content: center;
       background-color: #18222D;
-      border-radius: 10px;
-      overflow: hidden;
       padding: 20px;
+      border-radius: 15px;
+      margin: 20px auto;
+      width: 300px; /* Square dimensions */
+      height: 300px;
+      box-shadow: 0 4px 10px rgba(0, 182, 233, 0.6);
     }
 
-    canvas {
-      max-width: 100%;
-      max-height: 100%;
-      border-radius: 10px;
+    /* Buttons */
+    #controls {
+      display: flex;
+      justify-content: flex-start;
+      width: 100%;
+      margin-top: 20px;
+      gap: 20px;
     }
-#controls {
-  display: flex;
-  justify-content: space-between;
-  width: auto; /* Ensure it only takes necessary space */
-  margin-top: 20px;
-}
 
-#upload-btn,
-#download-btn {
-  padding: 12px 20px;
-  font-size: 16px;
-  border-radius: 8px;
-  font-weight: bold;
-  width: auto; /* Ensures button width adapts to content */
-}
+    #upload-btn,
+    #download-btn {
+      padding: 12px 20px;
+      font-size: 16px;
+      border-radius: 8px;
+      font-weight: bold;
+    }
 
-#upload-btn {
-  background-color: #143141;
-  color: #C7F284;
-  border: none;
-  cursor: pointer;
-  box-shadow: 0 4px 8px rgba(0, 182, 233, 0.6);
-}
-
-#upload-btn:hover {
-  background-color: #18222D;
-}
-
-#download-btn {
-  background: linear-gradient(45deg, #C7F284, #00B6E9);
-  color: #1C2936;
-  border: 2px solid #C7F284;
-  cursor: pointer;
-  box-shadow: 0 0 10px rgba(199, 242, 132, 0.8), 0 0 15px rgba(0, 182, 233, 0.6);
-  width: auto; /* Prevents button from stretching */
-}
-
-#download-btn:hover {
-  background: linear-gradient(45deg, #00B6E9, #C7F284);
-  border-color: #00B6E9;
-}
-
-    footer {
-      background-color: #12181F;
+    #upload-btn {
+      background-color: #143141;
       color: #C7F284;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0, 182, 233, 0.6);
+    }
+
+    #upload-btn:hover {
+      background-color: #18222D;
+    }
+
+    #download-btn {
+      width: auto;
+      background: linear-gradient(45deg, #C7F284, #00B6E9);
+      color: #1C2936;
+      border: 2px solid #C7F284;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(199, 242, 132, 0.8), 0 0 15px rgba(0, 182, 233, 0.6);
+      padding: 12px 20px;
+    }
+
+    #download-btn:hover {
+      background: linear-gradient(45deg, #00B6E9, #C7F284);
+      border-color: #00B6E9;
+    }
+
+    /* Footer */
+    footer {
       text-align: center;
       padding: 20px;
+      background-color: #131B24;
     }
 
-    footer img {
-      width: 60px;
-      height: 60px;
+    #thank-creator {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: #C7F284;
+      font-weight: bold;
+      gap: 10px;
+    }
+
+    #thank-creator img {
+      width: 50px;
+      height: 50px;
       border-radius: 50%;
-      display: block;
-      margin: 10px auto;
-      cursor: pointer;
+      box-shadow: 0 0 8px rgba(199, 242, 132, 0.6);
     }
 
-    footer p {
-      margin: 5px 0;
-      cursor: pointer;
-    }
-
-    footer p:hover,
-    footer img:hover {
+    #thank-creator span:hover {
       color: #00B6E9;
     }
   </style>
 </head>
 <body>
+
   <header>
     <img src="Catstanbul-logo.png" alt="Catstanbul Logo">
   </header>
 
-  <div id="main-container">
-    <!-- Frame Selection Section -->
-    <div id="frame-section">
-      <p>Choose your Frame:</p>
-      <div class="frame-preview-container">
-        <div class="frame-preview" data-frame="Catstanbul-01.png">
-          <canvas id="frame-preview-1"></canvas>
-        </div>
-        <div class="frame-preview" data-frame="Catstanbul-02.png">
-          <canvas id="frame-preview-2"></canvas>
-        </div>
-        <div class="frame-preview" data-frame="Catstanbul-03.png">
-          <canvas id="frame-preview-3"></canvas>
-        </div>
-        <div class="frame-preview" data-frame="Catstanbul-04.png">
-          <canvas id="frame-preview-4"></canvas>
-        </div>
-        <div class="frame-preview" data-frame="Catstanbul-05.png">
-          <canvas id="frame-preview-5"></canvas>
-        </div>
+  <div id="container">
+    <div id="frame-selection">
+      <h2>Choose Your Frame</h2>
+      <div class="frame-preview" data-frame="Catstanbul-01.png">
+        <canvas id="frame-preview-1"></canvas>
+      </div>
+      <div class="frame-preview" data-frame="Catstanbul-02.png">
+        <canvas id="frame-preview-2"></canvas>
+      </div>
+      <div class="frame-preview" data-frame="Catstanbul-03.png">
+        <canvas id="frame-preview-3"></canvas>
+      </div>
+      <div class="frame-preview" data-frame="Catstanbul-04.png">
+        <canvas id="frame-preview-4"></canvas>
+      </div>
+      <div class="frame-preview" data-frame="Catstanbul-05.png">
+        <canvas id="frame-preview-5"></canvas>
       </div>
     </div>
 
-    <!-- Preview Section -->
     <div id="preview-container">
       <canvas id="canvas"></canvas>
+      <div id="controls">
+        <button id="upload-btn" class="modern-button">Choose File</button>
+        <button id="download-btn" class="download-button">Meow It</button>
+      </div>
     </div>
   </div>
 
-  <input type="file" id="upload" accept="image/*" style="display: block; margin: 20px auto;">
-  <button id="download-btn">Meow It</button>
-
   <footer>
-    <a href="https://x.com/rjarivi" target="_blank">
-      <img src="X-logo.png" alt="RJ Arivi">
+    <a href="https://x.com/rjarivi" target="_blank" id="thank-creator">
+      <img src="X-logo.png" alt="RJ Arivi Logo">
+      <span>Thank the Creator: RJ Arivi</span>
     </a>
-    <p onclick="window.open('https://x.com/rjarivi', '_blank');">RJ Arivi</p>
-    <p>Help keep this project running. Your support matters!</p>
   </footer>
 
-  <script>
-    const uploadInput = document.getElementById('upload');
-    const canvas = document.getElementById('canvas');
-    const ctx = canvas.getContext('2d');
-    const frameOptions = document.querySelectorAll('.frame-preview');
-    const downloadBtn = document.getElementById('download-btn');
-    const frameCanvases = [
-      document.getElementById('frame-preview-1'),
-      document.getElementById('frame-preview-2'),
-      document.getElementById('frame-preview-3'),
-      document.getElementById('frame-preview-4'),
-      document.getElementById('frame-preview-5'),
-    ];
-
-    const framePaths = [
-      'Catstanbul-01.png',
-      'Catstanbul-02.png',
-      'Catstanbul-03.png',
-      'Catstanbul-04.png',
-      'Catstanbul-05.png',
-    ];
-    let selectedFrame = framePaths[0]; // Default frame
-    let uploadedImage = null;
-
-    function loadFramePreviews() {
-      frameCanvases.forEach((frameCanvas, index) => {
-        const frameCtx = frameCanvas.getContext('2d');
-        const frame = new Image();
-        frame.src = framePaths[index];
-
-        frame.onload = () => {
-          frameCtx.clearRect(0, 0, frameCanvas.width, frameCanvas.height);
-          frameCtx.drawImage(frame, 0, 0, frameCanvas.width, frameCanvas.height);
-        };
-      });
-    }
-
-    frameOptions.forEach(option => {
-      const frameCanvas = option.querySelector('canvas');
-      option.addEventListener('click', () => {
-        selectedFrame = option.getAttribute('data-frame');
-        frameOptions.forEach(opt => opt.querySelector('canvas').classList.remove('selected'));
-        frameCanvas.classList.add('selected');
-
-        if (uploadedImage) {
-          drawCanvas(uploadedImage, selectedFrame);
-        }
-      });
-    });
-
-    uploadInput.addEventListener('change', (e) => {
-      const file = e.target.files[0];
-      if (file) {
-        const img = new Image();
-        img.src = URL.createObjectURL(file);
-        img.onload = () => {
-          uploadedImage = img;
-          drawCanvas(img, selectedFrame);
-        };
-      }
-    });
-
-    function drawCanvas(image, frameSrc) {
-      const frame = new Image();
-      frame.src = frameSrc;
-
-      frame.onload = () => {
-        canvas.width = image.width;
-        canvas.height = image.height;
-
-        ctx.drawImage(image, 0, 0, image.width, image.height);
-        ctx.drawImage(frame, 0, 0, image.width, image.height);
-
-        const maxSize = 400;
-        const scaleFactor = Math.min(maxSize / image.width, maxSize / image.height);
-        canvas.style.width = `${image.width * scaleFactor}px`;
-        canvas.style.height = `${image.height * scaleFactor}px`;
-      };
-    }
-
-    downloadBtn.addEventListener('click', () => {
-      const link = document.createElement('a');
-      link.download = 'Catstanbul-Masterpiece.png';
-      link.href = canvas.toDataURL();
-      link.click();
-    });
-
-    loadFramePreviews();
-  </script>
 </body>
 </html>
