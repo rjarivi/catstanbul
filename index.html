@@ -6,7 +6,7 @@
   <title>Catstanbul 2025</title>
   <style>
     body {
-      font-family: "Akira Expanded", Arial, sans-serif;
+      font-family: Arial, sans-serif;
       background-color: #1C2936;
       color: #C7F284;
       margin: 0;
@@ -20,8 +20,13 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      background-color: #1C2936;
-      padding: 20px;
+      padding: 20px 0;
+    }
+
+    header img {
+      width: 200px;
+      height: auto;
+      cursor: pointer;
     }
 
     #main-container {
@@ -39,7 +44,15 @@
       display: flex;
       flex-direction: column;
       gap: 20px;
-      align-items: flex-start;
+    }
+
+    #frames-section h2 {
+      margin: 0;
+    }
+
+    .upload-note {
+      font-size: 14px;
+      text-align: left;
     }
 
     #upload-btn {
@@ -47,59 +60,49 @@
       color: #1C2936;
       border: none;
       padding: 10px 20px;
-      border-radius: 10px;
-      font-size: 16px;
+      border-radius: 5px;
       cursor: pointer;
-      transition: transform 0.3s ease;
-    }
-
-    #upload-btn:hover {
-      transform: scale(1.05);
     }
 
     .frames-container {
       display: flex;
-      flex-wrap: wrap;
-      gap: 15px;
-    }
-
-    .frame-preview {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      cursor: pointer;
+      gap: 10px;
+      overflow-x: auto;
+      padding-bottom: 10px;
     }
 
     .frame-preview img {
-      max-width: 80px;
-      max-height: 80px;
+      width: 80px;
+      height: 80px;
       border-radius: 10px;
     }
 
     #preview-section {
-      flex: 1;
+      flex: 2;
       background-color: #131B24;
       padding: 20px;
       border-radius: 10px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
     }
 
     #preview-container {
-      width: 400px;
-      height: 400px;
+      flex: 1;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       background-color: #143141;
       border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      margin-bottom: 20px;
     }
 
     #canvas {
-      max-width: 100%;
-      max-height: 100%;
+      width: 100%;
+      max-height: 400px;
+      object-fit: contain;
+      border-radius: 10px;
     }
 
     #download-btn {
@@ -107,67 +110,66 @@
       background: linear-gradient(135deg, #C7F284, #00B6E9);
       color: #1C2936;
       border: none;
+      border-radius: 5px;
       cursor: pointer;
-      font-size: 16px;
-      border-radius: 10px;
-      transition: transform 0.3s ease;
-    }
-
-    #download-btn:hover {
-      transform: scale(1.05);
     }
 
     footer {
       background-color: #12181F;
       color: #C7F284;
       text-align: center;
-      padding: 10px;
+      padding: 20px;
+    }
+
+    .copy-section {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 10px;
+    }
+
+    .copy-box {
+      padding: 10px 20px;
+      background-color: #18222D;
+      color: #C7F284;
+      border-radius: 5px;
       font-size: 12px;
-    }
-
-    footer img {
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      margin-bottom: 5px;
       cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
     }
 
-    footer p {
-      margin: 0;
-      cursor: pointer;
-      font-size: 10px;
-    }
-
-    footer p:hover {
-      color: #00B6E9;
+    .copy-box:hover {
+      background-color: #143141;
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>Catstanbul 2025</h1>
+    <img src="Catstanbul-logo.png" alt="Catstanbul Logo" onclick="window.location.href='https://x.com/rjarivi'">
   </header>
 
   <div id="main-container">
     <!-- Frames Section -->
     <div id="frames-section">
-      <p>Start by uploading your image</p>
+      <p>Upload only square images for best results.</p>
       <h2>Upload your image</h2>
       <button id="upload-btn">Choose File</button>
       <h2>Choose your frame</h2>
-      <p>Upload only square images (1:1 aspect ratio)</p>
+      <p class="upload-note">Upload only square images (1:1 aspect ratio)</p>
       <div class="frames-container">
-        <div class="frame-preview">
+        <div class="frame-preview" data-frame="Catstanbul-01.png">
           <img src="Catstanbul-01.png" alt="Frame 1">
         </div>
-        <div class="frame-preview">
+        <div class="frame-preview" data-frame="Catstanbul-02.png">
           <img src="Catstanbul-02.png" alt="Frame 2">
         </div>
-        <div class="frame-preview">
+        <div class="frame-preview" data-frame="Catstanbul-03.png">
           <img src="Catstanbul-03.png" alt="Frame 3">
         </div>
-        <div class="frame-preview">
+        <div class="frame-preview" data-frame="Catstanbul-04.png">
           <img src="Catstanbul-04.png" alt="Frame 4">
         </div>
       </div>
@@ -183,22 +185,22 @@
   </div>
 
   <footer>
-    <div style="display: flex; justify-content: center; align-items: center; gap: 5px;">
-      <img src="creator.png" alt="Creator">
-      <p id="creator-address" onclick="copyToClipboard('https://creator.url')">Creator</p>
+    <p>Creator</p>
+    <a href="https://x.com/rjarivi" target="_blank">
+      <img src="thank-creator.png" alt="Thank the Creator">
+    </a>
+    <div class="copy-section">
+      <div class="copy-box" onclick="copyAddress()">
+        AgwzDjcxtc1yyHGjJLjE9XyyXa2sP5yBDmqwUPK9FmJw
+      </div>
     </div>
   </footer>
 
   <script>
-    function copyToClipboard(text) {
-      navigator.clipboard.writeText(text).then(() => {
-        alert("Address copied to clipboard!");
-      });
+    function copyAddress() {
+      navigator.clipboard.writeText('AgwzDjcxtc1yyHGjJLjE9XyyXa2sP5yBDmqwUPK9FmJw');
+      alert('Address copied to clipboard!');
     }
-
-    document.getElementById('creator-address').addEventListener('click', () => {
-      copyToClipboard("https://creator.url");
-    });
   </script>
 </body>
 </html>
