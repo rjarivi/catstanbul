@@ -196,8 +196,8 @@ header img {
     <div id="frames-section">
       <h2>Choose your image</h2>
       <small>Choose only square images (1:1 aspect ratio)</small>
-      <button id="upload-btn">Choose File</button>
-
+       <button id="upload-btn" onclick="document.getElementById('file-input').click()">Choose File</button>
+        <input type="file" id="file-input" style="display: none;" onchange="previewImage(event)">
       <h2>Choose your frame</h2>
       <div class="frames-container">
         <!-- Frame previews -->
