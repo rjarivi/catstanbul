@@ -21,7 +21,7 @@
       justify-content: center;
       align-items: center;
       background-color: #1C2936;
-      padding: 20px;
+      padding-top: 40px; /* Added padding from top */
     }
 
     #main-container {
@@ -52,11 +52,12 @@
       font-size: 16px;
       cursor: pointer;
       width: 100%;
-      transition: transform 0.3s ease;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
     #upload-btn:hover {
       transform: scale(1.05);
+      box-shadow: 0px 4px 12px rgba(199, 242, 132, 0.6);
     }
 
     .frames-container {
@@ -93,6 +94,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      overflow: hidden;
     }
 
     #download-btn {
@@ -103,12 +105,13 @@
       cursor: pointer;
       font-size: 16px;
       border-radius: 10px;
-      transition: transform 0.3s ease;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
       margin-top: 20px;
     }
 
     #download-btn:hover {
       transform: scale(1.05);
+      box-shadow: 0px 4px 12px rgba(199, 242, 132, 0.6);
     }
 
     /* Footer */
@@ -164,27 +167,27 @@
 </head>
 <body>
   <header>
-    <img src="Catstanbullogo.png" alt="Catstanbullogo">
+    <img src="Catstanbullogo.png" alt="Catstanbul Logo">
   </header>
 
   <div id="main-container">
     <!-- Frames Section -->
     <div id="frames-section">
-      <h2>Upload your image</h2>
-      <button id="upload-btn">Choose File</button>
-      <p>Upload only square images (1:1 aspect ratio)</p>
+      <h2>Choose your image</h2>
+      <p>Choose only square images (1:1 aspect ratio)</p>
+      <input type="file" id="image-upload" accept="image/*" onchange="previewImage()">
       <h2>Choose your frame</h2>
       <div class="frames-container">
-        <div class="frame-preview">
+        <div class="frame-preview" onclick="selectFrame('Catstanbul-01.png')">
           <img src="Catstanbul-01.png" alt="Frame 1">
         </div>
-        <div class="frame-preview">
+        <div class="frame-preview" onclick="selectFrame('Catstanbul-02.png')">
           <img src="Catstanbul-02.png" alt="Frame 2">
         </div>
-        <div class="frame-preview">
+        <div class="frame-preview" onclick="selectFrame('Catstanbul-03.png')">
           <img src="Catstanbul-03.png" alt="Frame 3">
         </div>
-        <div class="frame-preview">
+        <div class="frame-preview" onclick="selectFrame('Catstanbul-04.png')">
           <img src="Catstanbul-04.png" alt="Frame 4">
         </div>
       </div>
@@ -195,14 +198,14 @@
       <div id="preview-container">
         <canvas id="canvas"></canvas>
       </div>
-      <button id="download-btn">Meow It!</button>
+      <button id="download-btn" onclick="downloadImage()">Meow It!</button>
     </div>
   </div>
 
   <footer>
     <div>
-      <img src="X-logo.png" alt="X-logo">
-      <p>RJ ARIVI on X</p>
+      <img src="Catstanbullogo.png" alt="Site Logo">
+      <p>RJ ARIVI <span style="font-size: 10px; color: #C7F284;">Site Creator</span></p>
     </div>
     <div class="copy-container">
       <img src="solana.svg" alt="Solana Logo">
@@ -214,6 +217,63 @@
   </footer>
 
   <script>
+    let selectedImage = null;
+    let selectedFrame = null;
+
+    function previewImage() {
+      const fileInput = document.getElementById("image-upload");
+      const file = fileInput.files[0];
+      const reader = new FileReader();
+
+      reader.onload = function(event) {
+        const image = new Image();
+        image.src = event.target.result;
+        image.onload = function() {
+          selectedImage = image;
+          drawCanvas();
+        };
+      };
+      
+      if (file) {
+        reader.readAsDataURL(file);
+      }
+    }
+
+    function selectFrame(frame) {
+      selectedFrame = frame;
+      drawCanvas();
+    }
+
+    function drawCanvas() {
+      if (!selectedImage || !selectedFrame) return;
+
+      const canvas = document.getElementById("canvas");
+      const ctx = canvas.getContext("2d");
+      
+      // Set canvas size
+      canvas.width = selectedImage.width;
+      canvas.height = selectedImage.height;
+
+      // Draw the image
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(selectedImage, 0, 0);
+
+      // Draw the frame
+      const frameImg = new Image();
+      frameImg.src = selectedFrame;
+      frameImg.onload = function() {
+        ctx.drawImage(frameImg, 0, 0, canvas.width, canvas.height);
+      };
+    }
+
+    function downloadImage() {
+      const canvas = document.getElementById("canvas");
+      const link = document.createElement("a");
+      link.download = "Catstanbul-Image.png";
+      link.href = canvas.toDataURL("image/png");
+      link.click();
+    }
+
     function copyToClipboard(text) {
       navigator.clipboard.writeText(text).then(() => {
         alert("Address copied to clipboard!");
