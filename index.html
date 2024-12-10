@@ -3,9 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Parti-Panels</title>
+  <title>Catstanbul 2025</title>
   <style>
-    /* Header Styles (Logo) */
+    body {
+      font-family: "Akira Expanded", Arial, sans-serif;
+      background-color: #1C2936;
+      color: #C7F284;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
     header {
       display: flex;
       justify-content: center;
@@ -23,27 +33,39 @@
       background-color: #18222D;
     }
 
-    /* Main Container Styles */
-    #container {
+    #main-container {
       display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-top: 20px;
-    }
-
-    #frame-section {
-      width: 45%;
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
+      flex-grow: 1;
+      padding: 20px;
       gap: 20px;
     }
 
+    #frame-section {
+      flex: 1;
+      background-color: #18222D;
+      padding: 20px;
+      border-radius: 10px;
+    }
+
+    #frame-section p {
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .frame-preview-container {
+      display: flex;
+      overflow-x: auto;
+      gap: 10px;
+      padding: 10px 0;
+    }
+
     .frame-preview {
-      display: inline-block;
-      margin: 10px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       cursor: pointer;
-      position: relative;
+      border-radius: 10px;
+      flex-shrink: 0;
     }
 
     .frame-preview canvas {
@@ -55,151 +77,210 @@
 
     .frame-preview canvas:hover,
     .frame-preview canvas.selected {
-      border-color: #32FFB4;
+      border-color: #C7F284;
     }
 
-    /* Preview Container Styles (Square) */
     #preview-container {
-      width: 45%;
-      height: 45vw; /* Square aspect ratio based on viewport width */
-      max-height: 500px; /* Maximum height limit */
-      background-color: #1A1A1F;
-      padding: 10px;
-      border-radius: 10px;
-      overflow: hidden;
+      flex: 2;
       display: flex;
       justify-content: center;
       align-items: center;
+      background-color: #18222D;
+      border-radius: 10px;
+      overflow: hidden;
+      padding: 20px;
+      width: 45vw; /* Match the left section height and ensure a square ratio */
+      height: 45vw; /* Square aspect ratio */
     }
 
-    #canvas {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
+    canvas {
+      max-width: 100%;
+      max-height: 100%;
       border-radius: 10px;
     }
 
-    /* Download Button Styles (Meow It) */
     #download-btn {
-      padding: 12px 25px;
-      background: linear-gradient(135deg, #C7F284, #00B6E9);
-      color: white;
-      border: none;
-      font-size: 18px;
-      border-radius: 5px;
-      box-shadow: 0px 0px 15px rgba(0, 183, 233, 0.5);
+      padding: 10px 20px;
+      background: linear-gradient(90deg, #C7F284, #00B6E9);
+      color: #1C2936;
+      border: 2px solid #32FFB4;
       cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 5px;
+      text-transform: uppercase;
+      margin: 20px auto;
+      display: block;
       transition: all 0.3s ease;
-      width: auto; /* Auto width based on text content */
-      margin-top: 20px;
+      width: auto; /* Auto width based on content */
     }
 
     #download-btn:hover {
-      box-shadow: 0px 0px 20px rgba(199, 242, 132, 0.8);
+      background: linear-gradient(90deg, #00B6E9, #C7F284);
+      box-shadow: 0px 0px 10px rgba(199, 242, 132, 0.8);
       transform: translateY(-3px);
     }
 
-    /* Thank the Creator Section Styles */
-    #thank-you-section {
+    footer {
+      background-color: #12181F;
+      color: #C7F284;
       text-align: center;
-      margin-top: 20px;
-      font-size: 16px;
+      padding: 20px;
     }
 
-    #thank-you-section img {
-      width: 50px;
-      height: 50px;
+    footer img {
+      width: 60px;
+      height: 60px;
       border-radius: 50%;
+      display: block;
+      margin: 10px auto;
       cursor: pointer;
-      border: 2px solid transparent;
-      margin-top: 10px;
     }
 
-    #thank-you-section img:hover {
-      border-color: #32FFB4;
+    footer p {
+      margin: 5px 0;
+      cursor: pointer;
     }
 
-    #thank-you-section a {
-      text-decoration: none;
-      color: inherit;
-      display: inline-block;
-      margin-top: 5px;
+    footer p:hover,
+    footer img:hover {
+      color: #00B6E9;
     }
   </style>
 </head>
 <body>
-
   <header>
     <img src="Catstanbul-logo.png" alt="Catstanbul Logo">
   </header>
 
-  <div id="container">
+  <div id="main-container">
+    <!-- Frame Selection Section -->
     <div id="frame-section">
       <p>Choose your Frame:</p>
-      <div class="frame-preview" data-frame="Catstanbul-01.png">
-        <canvas id="frame-preview-1"></canvas>
-      </div>
-      <div class="frame-preview" data-frame="Catstanbul-02.png">
-        <canvas id="frame-preview-2"></canvas>
-      </div>
-      <div class="frame-preview" data-frame="Catstanbul-03.png">
-        <canvas id="frame-preview-3"></canvas>
-      </div>
-      <div class="frame-preview" data-frame="Catstanbul-04.png">
-        <canvas id="frame-preview-4"></canvas>
-      </div>
-      <div class="frame-preview" data-frame="Catstanbul-05.png">
-        <canvas id="frame-preview-5"></canvas>
+      <div class="frame-preview-container">
+        <div class="frame-preview" data-frame="Catstanbul-01.png">
+          <canvas id="frame-preview-1"></canvas>
+        </div>
+        <div class="frame-preview" data-frame="Catstanbul-02.png">
+          <canvas id="frame-preview-2"></canvas>
+        </div>
+        <div class="frame-preview" data-frame="Catstanbul-03.png">
+          <canvas id="frame-preview-3"></canvas>
+        </div>
+        <div class="frame-preview" data-frame="Catstanbul-04.png">
+          <canvas id="frame-preview-4"></canvas>
+        </div>
+        <div class="frame-preview" data-frame="Catstanbul-05.png">
+          <canvas id="frame-preview-5"></canvas>
+        </div>
       </div>
     </div>
 
+    <!-- Preview Section -->
     <div id="preview-container">
       <canvas id="canvas"></canvas>
     </div>
-
-    <button id="download-btn">Meow It</button>
   </div>
 
-  <!-- Thank the Creator Section -->
-  <div id="thank-you-section">
-    <p>Thank the Creator by following them:</p>
+  <input type="file" id="upload" accept="image/*" style="display: block; margin: 20px auto;">
+  <button id="download-btn">Meow It</button>
+
+  <footer>
     <a href="https://x.com/rjarivi" target="_blank">
-      <img src="X Logo.png" alt="RJ Arivi">
+      <img src="X-logo.png" alt="RJ Arivi">
     </a>
-  </div>
+    <p onclick="window.open('https://x.com/rjarivi', '_blank');">RJ Arivi</p>
+    <p>Help keep this project running. Your support matters!</p>
+  </footer>
 
   <script>
-    // JavaScript for interactive functionality
-    const frames = document.querySelectorAll('.frame-preview');
+    const uploadInput = document.getElementById('upload');
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
+    const frameOptions = document.querySelectorAll('.frame-preview');
+    const downloadBtn = document.getElementById('download-btn');
+    const frameCanvases = [
+      document.getElementById('frame-preview-1'),
+      document.getElementById('frame-preview-2'),
+      document.getElementById('frame-preview-3'),
+      document.getElementById('frame-preview-4'),
+      document.getElementById('frame-preview-5'),
+    ];
 
-    frames.forEach(frame => {
-      frame.addEventListener('click', () => {
-        // Get selected frame and update preview
-        const selectedFrame = frame.getAttribute('data-frame');
-        const img = new Image();
-        img.src = selectedFrame;
-        img.onload = () => {
-          canvas.width = img.width;
-          canvas.height = img.height;
-          ctx.clearRect(0, 0, canvas.width, canvas.height);
-          ctx.drawImage(img, 0, 0);
+    const framePaths = [
+      'Catstanbul-01.png',
+      'Catstanbul-02.png',
+      'Catstanbul-03.png',
+      'Catstanbul-04.png',
+      'Catstanbul-05.png',
+    ];
+    let selectedFrame = framePaths[0]; // Default frame
+    let uploadedImage = null;
+
+    function loadFramePreviews() {
+      frameCanvases.forEach((frameCanvas, index) => {
+        const frameCtx = frameCanvas.getContext('2d');
+        const frame = new Image();
+        frame.src = framePaths[index];
+
+        frame.onload = () => {
+          frameCtx.clearRect(0, 0, frameCanvas.width, frameCanvas.height);
+          frameCtx.drawImage(frame, 0, 0, frameCanvas.width, frameCanvas.height);
         };
-        // Highlight selected frame
-        frames.forEach(f => f.querySelector('canvas').classList.remove('selected'));
-        frame.querySelector('canvas').classList.add('selected');
+      });
+    }
+
+    frameOptions.forEach(option => {
+      const frameCanvas = option.querySelector('canvas');
+      option.addEventListener('click', () => {
+        selectedFrame = option.getAttribute('data-frame');
+        frameOptions.forEach(opt => opt.querySelector('canvas').classList.remove('selected'));
+        frameCanvas.classList.add('selected');
+
+        if (uploadedImage) {
+          drawCanvas(uploadedImage, selectedFrame);
+        }
       });
     });
 
-    // Download Button functionality (for example purpose)
-    document.getElementById('download-btn').addEventListener('click', () => {
+    uploadInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        const img = new Image();
+        img.src = URL.createObjectURL(file);
+        img.onload = () => {
+          uploadedImage = img;
+          drawCanvas(img, selectedFrame);
+        };
+      }
+    });
+
+    function drawCanvas(image, frameSrc) {
+      const frame = new Image();
+      frame.src = frameSrc;
+
+      frame.onload = () => {
+        canvas.width = image.width;
+        canvas.height = image.height;
+
+        ctx.drawImage(image, 0, 0, image.width, image.height);
+        ctx.drawImage(frame, 0, 0, image.width, image.height);
+
+        const maxSize = 400;
+        const scaleFactor = Math.min(maxSize / image.width, maxSize / image.height);
+        canvas.style.width = `${image.width * scaleFactor}px`;
+        canvas.style.height = `${image.height * scaleFactor}px`;
+      };
+    }
+
+    downloadBtn.addEventListener('click', () => {
       const link = document.createElement('a');
+      link.download = 'Catstanbul-Masterpiece.png';
       link.href = canvas.toDataURL();
-      link.download = 'preview-image.png';
       link.click();
     });
-  </script>
 
+    loadFramePreviews();
+  </script>
 </body>
 </html>
