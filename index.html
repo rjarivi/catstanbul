@@ -16,51 +16,47 @@
       height: 100vh;
     }
 
-    h1 {
-      font-size: 36px;
-      color: #C7F284;
-      text-transform: uppercase;
-      margin: 20px 0;
-      text-align: center;
+    header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 10px;
+      background-color: #18222D;
     }
 
-    p {
-      color: #00B6E9;
+    header img {
+      max-height: 80px;
     }
 
     #main-container {
       display: flex;
+      flex-direction: column;
       flex-grow: 1;
       padding: 20px;
       gap: 20px;
     }
 
     #frame-section {
-      flex: 1;
+      display: flex;
+      overflow-x: auto;
+      gap: 10px;
+      padding: 10px;
       background-color: #18222D;
-      padding: 20px;
       border-radius: 10px;
-      max-height: calc(100vh - 200px);
-      overflow-y: auto;
-    }
-
-    #frame-section p {
-      margin-bottom: 10px;
     }
 
     .frame-preview {
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 10px;
       cursor: pointer;
     }
 
     .frame-preview canvas {
       border-radius: 10px;
       border: 2px solid transparent;
-      width: 80px;
-      height: 80px;
+      width: 100px;
+      height: 100px;
     }
 
     .frame-preview canvas:hover,
@@ -69,7 +65,7 @@
     }
 
     #preview-container {
-      flex: 2;
+      flex-grow: 1;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -108,7 +104,6 @@
       color: #C7F284;
       text-align: center;
       padding: 20px;
-      margin-top: auto;
     }
 
     footer img {
@@ -117,21 +112,33 @@
       border-radius: 50%;
       display: block;
       margin: 10px auto;
+      cursor: pointer;
     }
 
     footer p {
       margin: 5px 0;
+      cursor: pointer;
+    }
+
+    footer a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    footer a:hover {
+      color: #00B6E9;
     }
   </style>
 </head>
 <body>
-  <h1>Catstanbul 2025</h1>
-  <p style="text-align: center;">Upload your image, choose a frame, and download your masterpiece!</p>
+  <!-- Header with Logo -->
+  <header>
+    <img src="Catstanbul-logo.png" alt="Catstanbul 2025 Logo">
+  </header>
 
   <div id="main-container">
     <!-- Frame Selection Section -->
     <div id="frame-section">
-      <p>Choose your Frame:</p>
       <div class="frame-preview" data-frame="Catstanbul-01.png">
         <canvas id="frame-preview-1"></canvas>
       </div>
@@ -159,10 +166,11 @@
   <button id="download-btn">Meow It</button>
 
   <footer>
-    <p>Thank the Creator:</p>
-    <img src="X-logo.png" alt="RJ Arivi">
-    <p>RJ Arivi</p>
-    <p>Help keep this project running. Your support matters!</p>
+    <a href="https://x.com/rjarivi" target="_blank">
+      <img src="X-logo.png" alt="RJ Arivi">
+      <p>RJ Arivi</p>
+      <p>Help keep this project running. Your support matters!</p>
+    </a>
   </footer>
 
   <script>
