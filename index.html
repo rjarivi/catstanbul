@@ -22,11 +22,6 @@
       padding: 40px 0;
     }
 
-    header img {
-      max-height: 100px;
-      max-width: 100%;
-    }
-
     #main-container {
       display: flex;
       flex-grow: 1;
@@ -68,9 +63,22 @@
       justify-content: center;
     }
 
+    .frame-preview {
+      border: 2px solid #C7F284;
+      border-radius: 10px;
+      cursor: pointer;
+      padding: 10px;
+      transition: transform 0.3s ease;
+    }
+
+    .frame-preview:hover {
+      transform: scale(1.05);
+    }
+
     .frame-preview img {
-      max-width: 80px;
-      max-height: 80px;
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
       border-radius: 10px;
     }
 
@@ -182,28 +190,28 @@
 </head>
 <body>
   <header>
-    <img src="Catstanbullogo.png" alt="Catstanbul Logo">
+    <img src="Catstanbullogo.png" alt="Catstanbul Logo" id="header-logo">
   </header>
 
   <div id="main-container">
     <div id="frames-section">
       <h2>Choose your image</h2>
       <small>Choose only square images (1:1 aspect ratio)</small>
-      <input type="file" id="image-input" style="display:none;" onchange="handleImageUpload(event)">
-      <button id="upload-btn" onclick="document.getElementById('image-input').click()">Choose File</button>
+      <button id="upload-btn">Choose File</button>
 
       <h2>Choose your frame</h2>
       <div class="frames-container">
-        <div class="frame-preview">
+        <!-- Frame previews -->
+        <div class="frame-preview" onclick="changeFrame('Catstanbul-01.png')">
           <img src="Catstanbul-01.png" alt="Frame 1">
         </div>
-        <div class="frame-preview">
+        <div class="frame-preview" onclick="changeFrame('Catstanbul-02.png')">
           <img src="Catstanbul-02.png" alt="Frame 2">
         </div>
-        <div class="frame-preview">
+        <div class="frame-preview" onclick="changeFrame('Catstanbul-03.png')">
           <img src="Catstanbul-03.png" alt="Frame 3">
         </div>
-        <div class="frame-preview">
+        <div class="frame-preview" onclick="changeFrame('Catstanbul-04.png')">
           <img src="Catstanbul-04.png" alt="Frame 4">
         </div>
       </div>
@@ -213,19 +221,17 @@
       <div id="preview-container">
         <canvas id="canvas"></canvas>
       </div>
-      <button id="download-btn" onclick="downloadImage()">Meow It</button>
+      <button id="download-btn">Meow It</button>
     </div>
   </div>
 
   <footer>
     <div id="left-footer">
-      <a href="https://x.com/rjarivi" target="_blank">
-        <img src="x-logo.png" alt="Creator">
-        <div>
-          <p>RJ ARIVI</p>
-          <small>Site Creator</small>
-        </div>
-      </a>
+      <img src="x-logo.png" alt="Creator" onclick="window.location.href='https://x.com/rjarivi'">
+      <div>
+        <p onclick="window.location.href='https://x.com/rjarivi'">RJ ARIVI</p>
+        <small>Site Creator</small>
+      </div>
     </div>
     <div class="footer-center">
       <div class="support-text">
@@ -234,7 +240,6 @@
       </div>
       <div class="rounded-box" onclick="copyToClipboard('AgwzDjcxtc1yyHGjJLjE9XyyXa2sP5yBDmqwUPK9FmJw')">
         <img src="copy.png" alt="Copy">
-        <span>f7ash.sol</span>
       </div>
     </div>
     <div id="right-footer">
@@ -243,37 +248,25 @@
   </footer>
 
   <script>
+    function changeFrame(frame) {
+      const canvas = document.getElementById('canvas');
+      const ctx = canvas.getContext('2d');
+      const img = new Image();
+      img.src = frame;
+
+      img.onload = function() {
+        // Set the frame on canvas
+        canvas.width = 400; 
+        canvas.height = 400; 
+        ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear previous image
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height); // Draw new frame
+      };
+    }
+
     function copyToClipboard(text) {
       navigator.clipboard.writeText(text).then(() => {
         alert("Address copied to clipboard!");
       });
-    }
-
-    function handleImageUpload(event) {
-      const file = event.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          const img = new Image();
-          img.src = e.target.result;
-          img.onload = function() {
-            const canvas = document.getElementById('canvas');
-            const ctx = canvas.getContext('2d');
-            canvas.width = img.width;
-            canvas.height = img.height;
-            ctx.drawImage(img, 0, 0);
-          };
-        };
-        reader.readAsDataURL(file);
-      }
-    }
-
-    function downloadImage() {
-      const canvas = document.getElementById('canvas');
-      const link = document.createElement('a');
-      link.href = canvas.toDataURL();
-      link.download = 'image.png';
-      link.click();
     }
   </script>
 </body>
